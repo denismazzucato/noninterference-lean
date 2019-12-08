@@ -24,40 +24,6 @@ lemma structural_subtyping.reflex {ρ : phrase} :
   repeat {simp},
 end
 
-lemma structural_subtyping.trans.base {a : security_class} {b c : phrase}
-    (ihbc : ∃τ τ', b = base τ ∧ c = base τ' ∧ τ ≤ τ'
-                 ∨ b = var τ ∧ b = c
-                 ∨ b = cmd τ ∧ c = cmd τ' ∧ τ' ≤ τ)
-    (ihab : ∃τ τ', cmd a = base τ ∧ b = base τ' ∧ τ ≤ τ'
-                 ∨ cmd a = var τ ∧ cmd a = b
-                 ∨ cmd a = cmd τ ∧ b = cmd τ' ∧ τ' ≤ τ) :
-  ∃τ τ', cmd a = base τ ∧ c = base τ' ∧ τ ≤ τ'
-       ∨ cmd a = var τ ∧ cmd a = c
-       ∨ cmd a = cmd τ ∧ c = cmd τ' ∧ τ' ≤ τ
-:= begin
-  cases ihab with x ihab,
-  cases ihab with y ihab,
-  repeat { cases ihab, },
-  repeat { cc, },
-  cases ihab_right with ihby ihyx,
-  cases ihbc with y' ihbc,
-  cases ihbc with z ihbc,
-  repeat { cases ihbc with _ ihbc, },
-  repeat { cc, },
-  simp[ihby] at *,
-  apply exists.intro x,
-  apply exists.intro y',
-  cc,
-  apply exists.intro x,
-  apply exists.intro security_class.low,
-  repeat { apply or.inr, },
-  apply and.intro ihab_left,
-  apply and.intro ihbc_left_1,
-  cases x,
-  apply security_class.le.lower,
-  apply security_class.le.refl,
-end
-
 lemma structural_subtyping.trans {a b c : phrase}
     (ihab : ∃τ τ', a = base τ ∧ b = base τ' ∧ τ ≤ τ'
                  ∨ a = var τ ∧ a = b

@@ -42,8 +42,8 @@ import .lemmata.type_soundness
 
  ------------------------------------------------------------------------------
 
- In conclusion, we can't code directly a paper into Lean, without thinking to the
- details too much.
+ In conclusion, we can't code directly a paper into Lean, without thinking to
+ the details too much.
  We need to be able to formalize every details in a rigorous way.
 
 ----------------------------------------------------------------------------- -/
@@ -54,8 +54,8 @@ import .lemmata.type_soundness
 /- -----------------------------------------------------------------------------
  ---------------------------------------------- Second case study, short proofs
 
- Regarding Lemma 4.1, every line of paper proof corresponds at almost 10 line
- in Lean. in Lemma 4.2, this value increases up to 25 lines.
+ Regarding Lemma 4.1, every line of paper proof corresponds at almost 7 lines
+ in Lean. In Lemma 4.2, this value increases up to 25 lines.
 ----------------------------------------------------------------------------- -/
 
 #check flow_analysis.structural_subtyping
@@ -79,9 +79,9 @@ import .lemmata.type_soundness
 /- -----------------------------------------------------------------------------
  ---------------------------- Fourth case study, Rigorous proof vs Formal proof
 
- In Lemma 6.1 they use induction on the structure of the program,
+ In Lemma 6.4 they use induction on the structure of the program,
  this for the letvar case means: (λ, γ ⊢ let x := e in c : τ cmd)
-   if I have "λ, γ ⊢ c : τ cmd" I would be able to conclude this case using
+   if I had "λ, γ ⊢ c : τ cmd" I would be able to conclude this case using
    the inductive hypothesis.
    (conclusion coincides because letvar cannot build new locations)
  now "λ, γ ⊢ let x := e in c : τ cmd" tell us two things:
@@ -93,9 +93,8 @@ import .lemmata.type_soundness
 
  This is very easy to see, just replace c with this simple program "x := 0"
  from an empty context:
-   "∅, ∅[x : τ var] ⊢ x := 0 : τ cmd" holds
-   and "∅, ∅ ⊢ x := 0 : τ cmd" does not,
-   because it has no information about the x type
+   "∅, ∅[x : τ var] ⊢ x := 0 : τ cmd" holds and "∅, ∅ ⊢ x := 0 : τ cmd" does not
+   , because it has no information about the x type
 
  ------------------------------------------------------------------------------
 
