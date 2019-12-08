@@ -110,7 +110,7 @@ lemma confinement.exists_variant {Λ : location}
     cases h with γ h,
     cases h, rename h_τ τ', rename h_a_1 hc,
     apply ih,
-    apply exists.intro (γ[ₗ x : phrase.var τ']),
+    apply exists.intro (γ[ₗ x : phrase.var τ']), -- main point
     assumption,
   },
 end
