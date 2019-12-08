@@ -45,6 +45,7 @@ import .lemmata.type_soundness
  In conclusion, we can't code directly a paper into Lean, without thinking to
  the details too much.
  We need to be able to formalize every details in a rigorous way.
+ A lot of works need to be done before start coding a paper into Lean.
 
 ----------------------------------------------------------------------------- -/
 
