@@ -35,6 +35,59 @@ lemma simple_security {Λ : location} {γ : identifier}
   },
 end
 
+lemma confinement.generalizing {Λ : location} {γ : identifier}
+      {l : location} {c : program} {τ : security_class} :
+    (Λ, γ) ⊢ₜ c : phrase.cmd τ
+  → ∀x, program.assigned_to_in x c → map.lookup x Λ ≥ τ
+:= begin
+  simp only[prod.fst, prod.snd],
+  intros ht x hx,
+  have h := program_typing_eq.1 ht, simp at h, clear ht,
+  apply ge_iff_le.2,
+
+  induction hx generalizing γ,
+  case program.assigned_to_in.update : v e {
+    cases h,
+    cases h_a,
+  },
+  case program.assigned_to_in.seq_left : v c c' hv ih {
+    cases h,
+    apply ih,
+    assumption,
+  },
+  case program.assigned_to_in.seq_right : v c c' hv ih {
+    cases h,
+    apply ih,
+    assumption,
+  },
+  case program.assigned_to_in.branch_true : v e c c' hv ih {
+    cases h,
+    apply ih (syntax_directed_subtyping (
+      and.intro h_a_1 (
+        phrase.ss.cmd (
+          phrase.ss.base h_a_3)))),
+  },
+  case program.assigned_to_in.branch_false : v e c c' hv ih {
+    cases h,
+    apply ih (syntax_directed_subtyping (
+      and.intro h_a_2 (
+        phrase.ss.cmd (
+          phrase.ss.base h_a_3)))),
+  },
+  case program.assigned_to_in.loop : v e c hv ih {
+    cases h,
+    apply ih (syntax_directed_subtyping (
+      and.intro h_a_1 (
+        phrase.ss.cmd (
+          phrase.ss.base h_a_2)))),
+  },
+  case program.assigned_to_in.bind_var : v x e c h_neq hv ih {
+    cases h,
+    apply ih,
+    assumption,
+  },
+end
+
 lemma confinement.type_to_syntax {Λ : location} {c : program}
     {τ : security_class} :
   (∃x, (Λ, x) ⊢ₜ c : phrase.cmd τ) → (∃x, (Λ, x) ⊢ₛ c : phrase.cmd τ)

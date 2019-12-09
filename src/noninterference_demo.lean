@@ -105,3 +105,6 @@ import .lemmata.type_soundness
 
 #check flow_analysis.confinement
 #check flow_analysis.confinement.exists_variant
+
+-- or with generalizing the context in induction
+#check flow_analysis.confinement.generalizing
