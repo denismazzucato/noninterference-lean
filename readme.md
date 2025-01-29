@@ -2,9 +2,8 @@
 
 For this project, I try to code inside Lean the paper by Volpano, Smith and
 Irvine [A SoundType System for Secure Flow Analysis](http://users.cis.fiu.edu/~smithg/papers/jcs96.pdf).
-This work doesn't totally complete the paper, lemmata 6.5, 6.6, 6.7 and theorem
-6.8 are left out. I'm sorry for this but the project already count more than
-1000 loc so I decided to stop here.
+Lemma 6.5, 6.6, 6.7 and theorems
+6.8 are left out.
 
 ## Modules overview
 - **base**, simple module that stores the basic literals value
